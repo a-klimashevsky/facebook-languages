@@ -1,3 +1,5 @@
+package com.github.aklimashevsky;
+
 public class FacebookLanguages {
     public static long AAA = 113551105322082L;
     public static long AAB = 147478682113378L;
