@@ -1,2 +1,3 @@
 # facebook-languages
-initial page
+[[https://travis-ci.org/a-klimashevsky/facebook-languages.svg?branch=master]]
+
