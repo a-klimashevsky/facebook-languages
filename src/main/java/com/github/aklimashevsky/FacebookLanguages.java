@@ -3,6 +3,8 @@ package com.github.aklimashevsky;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,9 +14,9 @@ import java.util.*;
 
 public class FacebookLanguages {
 
-    private Map<Long, Language> map = new Hashtable<>();
+    @NotNull private Map<Long, Language> map = new Hashtable<>();
 
-    public void loadFrom(InputStream inputStream) throws IOException {
+    public void loadFrom(@NotNull InputStream inputStream) throws IOException {
         StringWriter writer = new StringWriter();
         IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8.name());
         String json = writer.toString();
@@ -25,7 +27,8 @@ public class FacebookLanguages {
         initWith(languages);
     }
 
-    public Locale getLanguage(long facebookLanguageId) {
+    @Nullable public Locale getLanguage(long facebookLanguageId) {
+
         Language language = map.get(facebookLanguageId);
         if (language == null) {
             return null;
@@ -37,7 +40,7 @@ public class FacebookLanguages {
         }
     }
 
-    public void initWith(Collection<Language> languages) {
+    public void initWith(@NotNull Collection<Language> languages) {
         map = new Hashtable<>();
         for (Language language : languages) {
             map.put(language.getFacebookId(), language);

@@ -81,6 +81,7 @@ public class FacebookLanguagesTest {
 
 
         Locale locale = facebookLanguages.getLanguage(1);
+        assertNotNull(locale);
         assertEquals("aar", locale.getLanguage());
         assertEquals("Afar", locale.getDisplayLanguage());
     }
@@ -107,6 +108,7 @@ public class FacebookLanguagesTest {
         facebookLanguages.initWith(languages);
 
         Locale locale = facebookLanguages.getLanguage(1);
+        assertNotNull(locale);
         assertEquals("apk", locale.getLanguage());
         assertEquals("apk", locale.getDisplayLanguage());
     }
