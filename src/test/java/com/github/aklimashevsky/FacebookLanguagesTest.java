@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FacebookLanguagesTest {
 
@@ -51,6 +50,13 @@ public class FacebookLanguagesTest {
     }
 
     @Test
+    public void testNotInit() throws Exception {
+        FacebookLanguages facebookLanguages = new FacebookLanguages();
+        assertEquals(0, facebookLanguages.getCount());
+        assertFalse(facebookLanguages.contains(42));
+    }
+
+    @Test
     public void testLoadFrom() throws Exception {
 
         String json = "[]";
@@ -77,6 +83,15 @@ public class FacebookLanguagesTest {
         Locale locale = facebookLanguages.getLanguage(1);
         assertEquals("aar", locale.getLanguage());
         assertEquals("Afar", locale.getDisplayLanguage());
+    }
+
+    @Test
+    public void testGetNullLocale() throws Exception {
+        FacebookLanguages facebookLanguages = new FacebookLanguages();
+
+        Locale locale = facebookLanguages.getLanguage(1);
+
+        assertNull(locale);
     }
 
     //apk				I	L	Kiowa Apache

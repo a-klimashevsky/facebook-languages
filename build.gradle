@@ -1,7 +1,12 @@
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
+
 group 'com.github.aklimashevsky'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: "jacoco"
 
 sourceCompatibility = 1.7
 
@@ -9,7 +14,12 @@ repositories {
     mavenCentral()
 }
 
-
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
 
 dependencies {
     compile group: 'org.json', name: 'json', version: '20160810'

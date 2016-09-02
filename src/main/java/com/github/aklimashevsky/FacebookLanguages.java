@@ -12,7 +12,7 @@ import java.util.*;
 
 public class FacebookLanguages {
 
-    private Map<Long, Language> map;
+    private Map<Long, Language> map = new Hashtable<>();
 
     public void loadFrom(InputStream inputStream) throws IOException {
         StringWriter writer = new StringWriter();
@@ -45,7 +45,7 @@ public class FacebookLanguages {
     }
 
     public int getCount() {
-        return map == null ? 0 : map.size();
+        return map.size();
     }
 
     public boolean contains(long facebookId) {

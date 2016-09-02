@@ -19,11 +19,11 @@ public class Language {
     @SerializedName("iso1")
     private String iso1Code;
 
-    public Language(int facebookId, String iso3Code) {
+    public Language(long facebookId, String iso3Code) {
         this(facebookId, iso3Code, null, null, null);
     }
 
-    public Language(int facebookId, String iso3Code, String iso2Code, String iso1Code, String name) {
+    public Language(long facebookId, String iso3Code, String iso2Code, String iso1Code, String name) {
         this.facebookId = facebookId;
         this.iso3Code = iso3Code;
         this.iso2Code = iso2Code;
