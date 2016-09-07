@@ -25,7 +25,7 @@ public class LanguageMapper<K> {
         initWith(languages);
     }
 
-    public Locale getLanguage(long id) {
+    public Locale getLanguage(K id) {
 
         Language<K> language = map.get(id);
         if (language == null) {
@@ -49,7 +49,7 @@ public class LanguageMapper<K> {
         return map.size();
     }
 
-    public boolean contains(long id) {
+    public boolean contains(K id) {
         return map.containsKey(id);
     }
 }
