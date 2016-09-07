@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import static org.junit.Assert.*;
 
-public class FacebookLanguagesTest {
+public class LanguageMapperTest {
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -35,25 +35,25 @@ public class FacebookLanguagesTest {
     @Test
     public void testInitWith() throws Exception {
 
-        Collection<Language> languages = new ArrayList<>();
-        languages.add(new Language(1, "a"));
-        languages.add(new Language(2, "b"));
+        Collection<Language<Integer>> languages = new ArrayList<>();
+        languages.add(new Language<>(1, "a"));
+        languages.add(new Language<>(2, "b"));
 
 
-        FacebookLanguages facebookLanguages = new FacebookLanguages();
+        LanguageMapper<Integer> languageMapper = new LanguageMapper<>();
 
-        facebookLanguages.initWith(languages);
+        languageMapper.initWith(languages);
 
-        assertEquals(languages.size(), facebookLanguages.getCount());
-        assertTrue(facebookLanguages.contains(1));
-        assertTrue(facebookLanguages.contains(2));
+        assertEquals(languages.size(), languageMapper.getCount());
+        assertTrue(languageMapper.contains(1));
+        assertTrue(languageMapper.contains(2));
     }
 
     @Test
     public void testNotInit() throws Exception {
-        FacebookLanguages facebookLanguages = new FacebookLanguages();
-        assertEquals(0, facebookLanguages.getCount());
-        assertFalse(facebookLanguages.contains(42));
+        LanguageMapper<Integer> languageMapper = new LanguageMapper<>();
+        assertEquals(0, languageMapper.getCount());
+        assertFalse(languageMapper.contains(42));
     }
 
     @Test
@@ -63,24 +63,24 @@ public class FacebookLanguagesTest {
 
         InputStream stream = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8));
 
-        FacebookLanguages facebookLanguages = new FacebookLanguages();
-        facebookLanguages.loadFrom(stream);
-        assertEquals(facebookLanguages.getCount(), 0);
+        LanguageMapper<Integer> languageMapper = new LanguageMapper<>();
+        languageMapper.loadFrom(stream);
+        assertEquals(languageMapper.getCount(), 0);
     }
 
     @Test
     public void testGetLocaleISO2() throws Exception {
 
-        Language language = new Language(1, "aar", "aar", "ar", "Afar");
+        Language<Integer> language = new Language<>(1, "aar", "aar", "ar", "Afar");
 
-        Collection<Language> languages = new ArrayList<>();
+        Collection<Language<Integer>> languages = new ArrayList<>();
         languages.add(language);
 
-        FacebookLanguages facebookLanguages = new FacebookLanguages();
-        facebookLanguages.initWith(languages);
+        LanguageMapper<Integer> languageMapper = new LanguageMapper<>();
+        languageMapper.initWith(languages);
 
 
-        Locale locale = facebookLanguages.getLanguage(1);
+        Locale locale = languageMapper.getLanguage(1);
         assertNotNull(locale);
         assertEquals("aar", locale.getLanguage());
         assertEquals("Afar", locale.getDisplayLanguage());
@@ -88,9 +88,9 @@ public class FacebookLanguagesTest {
 
     @Test
     public void testGetNullLocale() throws Exception {
-        FacebookLanguages facebookLanguages = new FacebookLanguages();
+        LanguageMapper<Integer> languageMapper = new LanguageMapper<>();
 
-        Locale locale = facebookLanguages.getLanguage(1);
+        Locale locale = languageMapper.getLanguage(1);
 
         assertNull(locale);
     }
@@ -99,15 +99,15 @@ public class FacebookLanguagesTest {
     @Test
     public void testGetLocaleISO3Only() throws Exception {
 
-        Language language = new Language(1, "apk", null, null, "Kiowa Apache");
+        Language<Integer> language = new Language<>(1, "apk", null, null, "Kiowa Apache");
 
-        Collection<Language> languages = new ArrayList<>();
+        Collection<Language<Integer>> languages = new ArrayList<>();
         languages.add(language);
 
-        FacebookLanguages facebookLanguages = new FacebookLanguages();
-        facebookLanguages.initWith(languages);
+        LanguageMapper<Integer> languageMapper = new LanguageMapper<>();
+        languageMapper.initWith(languages);
 
-        Locale locale = facebookLanguages.getLanguage(1);
+        Locale locale = languageMapper.getLanguage(1);
         assertNotNull(locale);
         assertEquals("apk", locale.getLanguage());
         assertEquals("apk", locale.getDisplayLanguage());

@@ -3,8 +3,6 @@ package com.github.aklimashevsky;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.io.IOUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,24 +10,24 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class FacebookLanguages {
+public class LanguageMapper<K> {
 
-    @NotNull private Map<Long, Language> map = new Hashtable<>();
+    private Map<K, Language<K>> map = new Hashtable<>();
 
-    public void loadFrom(@NotNull InputStream inputStream) throws IOException {
+    public void loadFrom(InputStream inputStream) throws IOException {
         StringWriter writer = new StringWriter();
         IOUtils.copy(inputStream, writer, StandardCharsets.UTF_8.name());
         String json = writer.toString();
         Gson gson = new Gson();
-        ArrayList<Language> languages =
-                gson.fromJson(json, new TypeToken<ArrayList<Language>>() {
+        ArrayList<Language<K>> languages =
+                gson.fromJson(json, new TypeToken<ArrayList<Language<K>>>() {
                 }.getType());
         initWith(languages);
     }
 
-    @Nullable public Locale getLanguage(long facebookLanguageId) {
+    public Locale getLanguage(long id) {
 
-        Language language = map.get(facebookLanguageId);
+        Language<K> language = map.get(id);
         if (language == null) {
             return null;
         }
@@ -40,10 +38,10 @@ public class FacebookLanguages {
         }
     }
 
-    public void initWith(@NotNull Collection<Language> languages) {
+    public void initWith(Collection<Language<K>> languages) {
         map = new Hashtable<>();
-        for (Language language : languages) {
-            map.put(language.getFacebookId(), language);
+        for (Language<K> language : languages) {
+            map.put(language.getId(), language);
         }
     }
 
@@ -51,7 +49,7 @@ public class FacebookLanguages {
         return map.size();
     }
 
-    public boolean contains(long facebookId) {
-        return map.containsKey(facebookId);
+    public boolean contains(long id) {
+        return map.containsKey(id);
     }
 }

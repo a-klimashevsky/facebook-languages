@@ -2,10 +2,10 @@ package com.github.aklimashevsky;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Language {
+public class Language<K> {
 
-    @SerializedName("facebook_id")
-    private long facebookId;
+    @SerializedName("id")
+    private K id;
 
     @SerializedName("name")
     private String name;
@@ -13,26 +13,26 @@ public class Language {
     @SerializedName("iso3")
     private String iso3Code;
 
-    @SerializedName("iso2Code")
+    @SerializedName("iso2")
     private String iso2Code;
 
     @SerializedName("iso1")
     private String iso1Code;
 
-    public Language(long facebookId, String iso3Code) {
-        this(facebookId, iso3Code, null, null, null);
+    public Language(K id, String iso3Code) {
+        this(id, iso3Code, null, null, null);
     }
 
-    public Language(long facebookId, String iso3Code, String iso2Code, String iso1Code, String name) {
-        this.facebookId = facebookId;
+    public Language(K id, String iso3Code, String iso2Code, String iso1Code, String name) {
+        this.id = id;
         this.iso3Code = iso3Code;
         this.iso2Code = iso2Code;
         this.iso1Code = iso1Code;
         this.name = name;
     }
 
-    public long getFacebookId() {
-        return facebookId;
+    public K getId() {
+        return id;
     }
 
     public String getName() {
